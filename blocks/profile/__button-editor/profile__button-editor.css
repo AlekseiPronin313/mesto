@@ -1,0 +1,11 @@
+.profile__button-editor {
+    cursor: pointer;
+    grid-column: 2/-1;
+    grid-row: 1/1;
+    margin-bottom: 8px;
+    transition: all 1s ease;
+}
+
+.profile__button-editor:hover {
+    opacity: 0.6;
+}
