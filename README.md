@@ -11,5 +11,5 @@
 5. flexbox
 6. Grid Layout
 
-* [Ссылка на проект GitHub](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+* [Ссылка на проект GitHub](https://aleksey313.github.io/russian-travel/index.com)
 
