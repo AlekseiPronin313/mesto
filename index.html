@@ -27,56 +27,14 @@
                 </button>
             </section>
             <section class="elements">
-                <article class="element">
-                    <img class="element__img" src="./images/img1.jpg" alt="фото">
-                    <div class="element__box">
-                        <h2 class="element__text">Карачаевск</h2>
-                        <button class="element__like" aria-label="like" type="button"></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="./images/img2.jpg" alt="фото">
-                    <div class="element__box">
-                        <h2 class="element__text">Гора Эльбрус</h2>
-                        <button class="element__like" aria-label="like" type="button"></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="./images/img3.jpg" alt="фото">
-                    <div class="element__box">
-                        <h2 class="element__text">Домбай</h2>
-                        <button class="element__like" aria-label="like" type="button"></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="./images/img4.jpg" alt="фото">
-                    <div class="element__box">
-                        <h2 class="element__text">Гора Эльбрус</h2>
-                        <button class="element__like" aria-label="like" type="button"></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="./images/img5.jpg" alt="фото">
-                    <div class="element__box">
-                        <h2 class="element__text">Домбай</h2>
-                        <button class="element__like" aria-label="like" type="button"></button>
-                    </div>
-                </article>
-                <article class="element">
-                    <img class="element__img" src="./images/img6.jpg" alt="фото">
-                    <div class="element__box">
-                        <h2 class="element__text">Карачаево-Черкесская</h2>
-                        <button class="element__like" aria-label="like" type="button"></button>
-                    </div>
-                </article>
             </section>
         </main>
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
-        <div class="popup">
+        <div class="popup" id="popup_editor">
             <div class="popup__containers">
-                <form class="popup__container" name="popup__container">
+                <form class="popup__container" id="popup__container_editor" name="popup__container">
                     <h2 class="popup__title">Редактировать профиль</h2>
                     <input class="popup__input popup__input_type_name" name="name" type="text">
                     <input class="popup__input popup__input_type_info" name="info" type="text">
@@ -85,6 +43,35 @@
                 <button class="popup__close" type="button"></button>
             </div>
         </div>
+        <div class="popup" id="popup_add">
+            <div class="popup__containers">
+                <form class="popup__container" id="popup__container_add" name="popup__container">
+                    <h2 class="popup__title">Новое место</h2>
+                    <input class="popup__input popup__input_type_title" name="name" type="text" placeholder="Название">
+                    <input class="popup__input popup__input_type_link" name="info" type="text"
+                        placeholder="Ссылка на картинку">
+                    <input class="popup__save" name="save" type="submit" value="Сохранить">
+                </form>
+                <button class="popup__close" type="button"></button>
+            </div>
+        </div>
+        <div class="popup popup_opacity" id="popup_image">
+            <div class="popup__image">
+                <img class="popup__jpg" src="" alt="">
+                <h2 class="popup__text"></h2>
+                <button class="popup__close" type="button"></button>
+            </div>
+        </div>
+        <template class="template">
+            <article class="element">
+                <img class="element__img">
+                <div class="element__box">
+                    <h2 class="element__text"></h2>
+                    <button class="element__like" aria-label="like" type="button"></button>
+                    <button class="element__delete" aria-label="delete" type="button"></button>
+                </div>
+            </article>
+        </template>
     </div>
     <script src="pages/index.js"></script>
 </body>
