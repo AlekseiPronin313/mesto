@@ -24,14 +24,14 @@ const initialCards = [{
     }
 ];
 
-let openUp = document.querySelector('.profile__button-editor');
-let closeUp = document.querySelectorAll('.popup__close');
-let popUpEditor = document.querySelector('#popup_editor');
-let title = document.querySelector('.profile__title');
-let subtitle = document.querySelector('.profile__subtitle');
-let inputName = document.querySelector('.popup__input_type_name');
-let inputInfo = document.querySelector('.popup__input_type_info');
-let formEditor = document.querySelector('#popup__container_editor');
+const openUp = document.querySelector('.profile__button-editor');
+const closeUp = document.querySelectorAll('.popup__close');
+const popUpEditor = document.querySelector('#popup_editor');
+const title = document.querySelector('.profile__title');
+const subtitle = document.querySelector('.profile__subtitle');
+const inputName = document.querySelector('.popup__input_type_name');
+const inputInfo = document.querySelector('.popup__input_type_info');
+const formEditor = document.querySelector('#popup__container_editor');
 const formAdd = document.querySelector('#popup__container_add');
 const inputTitle = document.querySelector('.popup__input_type_title');
 const inputLink = document.querySelector('.popup__input_type_link');
