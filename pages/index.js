@@ -25,7 +25,7 @@ const initialCards = [{
 ];
 
 const openUp = document.querySelector('.profile__button-editor');
-const closeUp = document.querySelectorAll('.popup__close');
+const closingPopUps = document.querySelectorAll('.popup__close');
 const popUpEditor = document.querySelector('#popup_editor');
 const title = document.querySelector('.profile__title');
 const subtitle = document.querySelector('.profile__subtitle');
@@ -37,24 +37,22 @@ const inputTitle = document.querySelector('.popup__input_type_title');
 const inputLink = document.querySelector('.popup__input_type_link');
 const photoEditing = document.querySelector('.profile__button-add');
 const popUpAdd = document.querySelector('#popup_add');
-const popUp = document.querySelectorAll('.popup');
 const popupImage = document.querySelector('#popup_image');
 const popupJpg = document.querySelector('.popup__jpg');
 const popupText = document.querySelector('.popup__text');
 const template = document.querySelector('.template');
 const elements = document.querySelector('.elements');
 
-
 function render() {
     const html = initialCards
         .map((item) => {
-            return getItem(item);
+            return getItems(item);
         });
 
     elements.append(...html);
 }
 
-function getItem(item) {
+function getItems(item) {
     const newItem = template.content.cloneNode(true);
     const elementText = newItem.querySelector('.element__text');
     const imageCard = newItem.querySelector('.element__img');
@@ -72,7 +70,7 @@ function getItem(item) {
         popupJpg.src = imageCard.src;
         popupText.textContent = imageCard.alt;
         popupJpg.alt = imageCard.alt;
-        popupImage.classList.add('popup_opened');
+        openPopup(popupImage);
     });
     deleteCard.addEventListener('click', function (evt) {
         evt.target.closest('.element').remove();
@@ -80,36 +78,29 @@ function getItem(item) {
     return newItem;
 }
 
+function openPopup(popup) {
+    popup.classList.add('popup_opened');
+}
 
-function open() {
+function closePopup(popup) {
+    popup.closest('.popup').classList.remove('popup_opened');
+}
+
+openUp.addEventListener('click', function () {
     inputName.value = title.textContent
     inputInfo.value = subtitle.textContent
-    popUpEditor.classList.add('popup_opened');
-}
-
-function close() {
-    popUp.forEach(item => {
-        item.classList.remove('popup_opened');
-    });
-}
-
-function popUpAddOpen() {
-    popUpAdd.classList.add('popup_opened');
-}
-
-closeUp.forEach(item => {
-    item.addEventListener('click', close);
+    openPopup(popUpEditor)
 });
 
-photoEditing.addEventListener('click', popUpAddOpen);
+closingPopUps.forEach(item => {
+    item.addEventListener('click', () => closePopup(item));
+});
 
-openUp.addEventListener('click', open);
-
-function formSubmitHandler(evt) {
+function formSubmissionHandler(evt) {
     evt.preventDefault();
     title.textContent = inputName.value
     subtitle.textContent = inputInfo.value
-    close();
+    closePopup(popUpEditor)
 }
 
 function addCards(evt) {
@@ -118,14 +109,14 @@ function addCards(evt) {
         link: inputLink.value,
         name: inputTitle.value
     };
-    const newCard = getItem(initialCards);
+    const newCard = getItems(initialCards);
     elements.prepend(newCard);
     inputTitle.value = '';
     inputLink.value = '';
-    close();
-
+    closePopup(popUpAdd)
 }
 
-formEditor.addEventListener('submit', formSubmitHandler);
+photoEditing.addEventListener('click', () => openPopup(popUpAdd));
+formEditor.addEventListener('submit', formSubmissionHandler);
 formAdd.addEventListener('submit', addCards);
 render();
