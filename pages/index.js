@@ -96,7 +96,7 @@ closingPopUps.forEach(item => {
     item.addEventListener('click', () => closePopup(item));
 });
 
-function formSubmissionHandler(evt) {
+function handleFormSubmit(evt) {
     evt.preventDefault();
     title.textContent = inputName.value
     subtitle.textContent = inputInfo.value
@@ -117,6 +117,6 @@ function addCards(evt) {
 }
 
 photoEditing.addEventListener('click', () => openPopup(popUpAdd));
-formEditor.addEventListener('submit', formSubmissionHandler);
+formEditor.addEventListener('submit', handleFormSubmit);
 formAdd.addEventListener('submit', addCards);
 render();
