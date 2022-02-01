@@ -33,31 +33,47 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
         <div class="popup" id="popup_editor">
+            <div class="popup__overlay"></div>
             <div class="popup__containers">
-                <form class="popup__container" id="popup__container_editor" name="popup__container">
+                <div class="popup__container" id="popup__container_editor" name="popup__container">
                     <h2 class="popup__title">Редактировать профиль</h2>
-                    <input class="popup__input popup__input_type_name" name="name" type="text">
-                    <input class="popup__input popup__input_type_info" name="info" type="text">
-                    <input class="popup__save" name="save" type="submit" value="Сохранить">
-                </form>
+                    <form class="form">
+                        <input class="form__input" required minlength="2" maxlength="40" id="name"
+                            name="name" type="text">
+                        <span id="error-name" class="form__error"></span>
+                        <input class="form__input" required minlength="2" maxlength="200" id="info"
+                            name="info" type="text">
+                        <span id="error-info" class="form__error"></span>
+                        <button class="popup__button popup__button_disabled" id="button-editor" name="button" type="submit">Сохранить</button>
+                    </form>
+                </div>
                 <button class="popup__close" type="button"></button>
             </div>
         </div>
         <div class="popup" id="popup_add">
+            <div class="popup__overlay"></div>
             <div class="popup__containers">
-                <form class="popup__container" id="popup__container_add" name="popup__container">
+                <div class="popup__container" id="popup__container_add" name="popup__container">
                     <h2 class="popup__title">Новое место</h2>
-                    <input class="popup__input popup__input_type_title" name="name" type="text" placeholder="Название">
-                    <input class="popup__input popup__input_type_link" name="info" type="text"
-                        placeholder="Ссылка на картинку">
-                    <input class="popup__save" name="save" type="submit" value="Сохранить">
-                </form>
+                    <form class="form" id="form-add">
+                        <input class="form__input" required minlength="2" maxlength="30" id="title"
+                            name="title" type="text" placeholder="Название">
+                        <span id="error-title" class="form__error"></span>
+                        <input class="form__input" required id="link" name="link" type="url"
+                            placeholder="Ссылка на картинку">
+                        <span id="error-link" class="form__error"></span>
+                        <button class="popup__button popup__button_disabled" id="botton-add" name="button" type="submit">Создать</button>
+                    </form>
+                </div>
                 <button class="popup__close" type="button"></button>
             </div>
         </div>
         <div class="popup popup_opacity" id="popup_image">
+            <div class="popup__overlay"></div>
             <div class="popup__image">
-                <img class="popup__jpg" src="https://polit.ru/media/photolib/2019/03/12/%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C_%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9_1552384794.jpg" alt="Рязань">
+                <img class="popup__jpg"
+                    src="https://polit.ru/media/photolib/2019/03/12/%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C_%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9_1552384794.jpg"
+                    alt="Рязань">
                 <h2 class="popup__text"></h2>
                 <button class="popup__close" type="button"></button>
             </div>
@@ -73,7 +89,8 @@
             </article>
         </template>
     </div>
-    <script src="pages/index.js"></script>
+    <script src="scripts/index.js"></script>
+    <script src="scripts/validate.js"></script>
 </body>
 
 </html>
