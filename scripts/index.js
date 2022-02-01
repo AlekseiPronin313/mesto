@@ -24,7 +24,7 @@ const initialCards = [{
 }
 ];
 
-const popUp = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup')
 const openUp = document.querySelector('.profile__button-editor');
 const popUpEditor = document.querySelector('#popup_editor');
 const title = document.querySelector('.profile__title');
@@ -42,7 +42,7 @@ const popupJpg = document.querySelector('.popup__jpg');
 const popupText = document.querySelector('.popup__text');
 const template = document.querySelector('.template');
 const elements = document.querySelector('.elements');
-const buttonEditor = document.querySelector('#button-editor')
+const buttonEditor = document.querySelector('#botton-editor')
 const bottonAdd = document.querySelector('#botton-add')
 const form = document.querySelector('#form-add')
 
@@ -101,11 +101,10 @@ function closePopupEsc(evt) {
 openUp.addEventListener('click', function () {
     inputName.value = title.textContent
     inputInfo.value = subtitle.textContent
-    buttonEditor.classList.add('popup__button_disabled')
     openPopup(popUpEditor)
 });
 
-popUp.forEach(element => {
+popups.forEach(element => {
     const closingPopUps = element.querySelector('.popup__close');
     closingPopUps.addEventListener('click', () => closePopup(element))
     const overlay = element.querySelector('.popup__overlay')
@@ -116,6 +115,8 @@ function handleFormSubmit(evt) {
     evt.preventDefault();
     title.textContent = inputName.value
     subtitle.textContent = inputInfo.value
+    buttonEditor.setAttribute('disabled', '')
+    buttonEditor.classList.add('popup__button_disabled')
     closePopup(popUpEditor)
 }
 
@@ -127,7 +128,9 @@ function addCards(evt) {
     };
     const newCard = getItems(initialCards);
     elements.prepend(newCard);
+    bottonAdd.setAttribute('disabled', '')
     bottonAdd.classList.add('popup__button_disabled')
+
     form.reset()
     closePopup(popUpAdd)
 }
