@@ -1,4 +1,4 @@
-.popup__input {
+.form__input {
     height: 27px;
     padding: 0 0 13px;
     border: none;
@@ -9,5 +9,5 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }

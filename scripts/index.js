@@ -1,40 +1,40 @@
 const initialCards = [{
-        name: 'Рязань',
-        link: 'https://polit.ru/media/photolib/2019/03/12/%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C_%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9_1552384794.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Чебоксары',
-        link: 'https://static.tildacdn.com/tild6665-6531-4661-b564-306366306164/133.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
+    name: 'Рязань',
+    link: 'https://polit.ru/media/photolib/2019/03/12/%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C_%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9_1552384794.jpg'
+},
+{
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+},
+{
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+},
+{
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+},
+{
+    name: 'Чебоксары',
+    link: 'https://static.tildacdn.com/tild6665-6531-4661-b564-306366306164/133.jpg'
+},
+{
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+}
 ];
 
+const popUp = document.querySelectorAll('.popup')
 const openUp = document.querySelector('.profile__button-editor');
-const closingPopUps = document.querySelectorAll('.popup__close');
 const popUpEditor = document.querySelector('#popup_editor');
 const title = document.querySelector('.profile__title');
 const subtitle = document.querySelector('.profile__subtitle');
-const inputName = document.querySelector('.popup__input_type_name');
-const inputInfo = document.querySelector('.popup__input_type_info');
+const inputName = document.querySelector('#name');
+const inputInfo = document.querySelector('#info');
 const formEditor = document.querySelector('#popup__container_editor');
 const formAdd = document.querySelector('#popup__container_add');
-const inputTitle = document.querySelector('.popup__input_type_title');
-const inputLink = document.querySelector('.popup__input_type_link');
+const inputTitle = document.querySelector('#title');
+const inputLink = document.querySelector('#link');
 const photoEditing = document.querySelector('.profile__button-add');
 const popUpAdd = document.querySelector('#popup_add');
 const popupImage = document.querySelector('#popup_image');
@@ -42,6 +42,9 @@ const popupJpg = document.querySelector('.popup__jpg');
 const popupText = document.querySelector('.popup__text');
 const template = document.querySelector('.template');
 const elements = document.querySelector('.elements');
+const buttonEditor = document.querySelector('#button-editor')
+const bottonAdd = document.querySelector('#botton-add')
+const form = document.querySelector('#form-add')
 
 function render() {
     const html = initialCards
@@ -80,20 +83,33 @@ function getItems(item) {
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closePopupEsc)
 }
 
 function closePopup(popup) {
     popup.closest('.popup').classList.remove('popup_opened');
+    document.removeEventListener('keydown', closePopupEsc)
+}
+
+function closePopupEsc(evt) {
+    if (evt.key === 'Escape') {
+        const popupOpened = document.querySelector('.popup_opened')
+        closePopup(popupOpened)
+    }
 }
 
 openUp.addEventListener('click', function () {
     inputName.value = title.textContent
     inputInfo.value = subtitle.textContent
+    buttonEditor.classList.add('popup__button_disabled')
     openPopup(popUpEditor)
 });
 
-closingPopUps.forEach(item => {
-    item.addEventListener('click', () => closePopup(item));
+popUp.forEach(element => {
+    const closingPopUps = element.querySelector('.popup__close');
+    closingPopUps.addEventListener('click', () => closePopup(element))
+    const overlay = element.querySelector('.popup__overlay')
+    overlay.addEventListener('click', () => closePopup(element))
 });
 
 function handleFormSubmit(evt) {
@@ -111,8 +127,8 @@ function addCards(evt) {
     };
     const newCard = getItems(initialCards);
     elements.prepend(newCard);
-    inputTitle.value = '';
-    inputLink.value = '';
+    bottonAdd.classList.add('popup__button_disabled')
+    form.reset()
     closePopup(popUpAdd)
 }
 
