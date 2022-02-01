@@ -89,14 +89,14 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.closest('.popup').classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupEsc)
-}
+};
 
 function closePopupEsc(evt) {
     if (evt.key === 'Escape') {
         const popupOpened = document.querySelector('.popup_opened')
         closePopup(popupOpened)
-    }
-}
+    };
+};
 
 openUp.addEventListener('click', function () {
     inputName.value = title.textContent
