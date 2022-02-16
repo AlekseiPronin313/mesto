@@ -1,26 +1,30 @@
+import { FormValidator } from "./FormValidator.js";
+import { Card } from "./Card.js";
+
 const initialCards = [{
     name: 'Рязань',
-    link: 'https://polit.ru/media/photolib/2019/03/12/%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C_%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9_1552384794.jpg'
+    link: 'https://polit.ru/media/photolib/2019/03/12/%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C_%D0%B7%D0%B8%D0%BC%D0%BE%D0%B9_1552384794.jpg',
 },
 {
     name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
 },
 {
     name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
 },
 {
     name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
 },
 {
     name: 'Чебоксары',
-    link: 'https://static.tildacdn.com/tild6665-6531-4661-b564-306366306164/133.jpg'
+    link: 'https://static.tildacdn.com/tild6665-6531-4661-b564-306366306164/133.jpg',
 },
 {
     name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    
 }
 ];
 
@@ -37,14 +41,23 @@ const inputTitle = document.querySelector('#title');
 const inputLink = document.querySelector('#link');
 const photoEditing = document.querySelector('.profile__button-add');
 const popUpAdd = document.querySelector('#popup_add');
-const popupImage = document.querySelector('#popup_image');
-const popupJpg = document.querySelector('.popup__jpg');
-const popupText = document.querySelector('.popup__text');
-const template = document.querySelector('.template');
 const elements = document.querySelector('.elements');
-const buttonEditor = document.querySelector('#botton-editor')
-const bottonAdd = document.querySelector('#botton-add')
 const form = document.querySelector('#form-add')
+const cardTemplateSelector = "#template"
+
+const enableValidation = ({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'form__input_error',
+    errorClass: 'form__error_visible'
+});
+
+const formEditValidator = new FormValidator(enableValidation, popUpEditor);
+const formAddValidator = new FormValidator(enableValidation, popUpAdd);
+formEditValidator.enableValidation();
+formAddValidator.enableValidation();
 
 function render() {
     const html = initialCards
@@ -56,32 +69,11 @@ function render() {
 }
 
 function getItems(item) {
-    const newItem = template.content.cloneNode(true);
-    const elementText = newItem.querySelector('.element__text');
-    const imageCard = newItem.querySelector('.element__img');
-    const like = newItem.querySelector('.element__like');
-    const deleteCard = newItem.querySelector('.element__delete');
-
-    elementText.textContent = item.name;
-    imageCard.src = item.link;
-    imageCard.alt = item.name;
-
-    like.addEventListener('click', function (evt) {
-        evt.target.classList.toggle('element__like_active');
-    });
-    imageCard.addEventListener('click', function () {
-        popupJpg.src = imageCard.src;
-        popupText.textContent = imageCard.alt;
-        popupJpg.alt = imageCard.alt;
-        openPopup(popupImage);
-    });
-    deleteCard.addEventListener('click', function (evt) {
-        evt.target.closest('.element').remove();
-    });
-    return newItem;
+    const card = new Card(cardTemplateSelector, item.name, item.link)
+    return card.getCardElement()
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closePopupEsc)
 }
@@ -98,12 +90,6 @@ function closePopupEsc(evt) {
     };
 };
 
-openUp.addEventListener('click', function () {
-    inputName.value = title.textContent
-    inputInfo.value = subtitle.textContent
-    openPopup(popUpEditor)
-});
-
 popups.forEach(element => {
     const closingPopUps = element.querySelector('.popup__close');
     closingPopUps.addEventListener('click', () => closePopup(element))
@@ -115,27 +101,32 @@ function handleFormSubmit(evt) {
     evt.preventDefault();
     title.textContent = inputName.value
     subtitle.textContent = inputInfo.value
-    buttonEditor.setAttribute('disabled', '')
-    buttonEditor.classList.add('popup__button_disabled')
     closePopup(popUpEditor)
 }
 
-function addCards(evt) {
-    evt.preventDefault();
-    const initialCards = {
-        link: inputLink.value,
-        name: inputTitle.value
-    };
-    const newCard = getItems(initialCards);
-    elements.prepend(newCard);
-    bottonAdd.setAttribute('disabled', '')
-    bottonAdd.classList.add('popup__button_disabled')
+function openEdit() {
+    inputName.value = title.textContent
+    inputInfo.value = subtitle.textContent
+    formEditValidator.resetValidation()
+    openPopup(popUpEditor)
+}
 
+function openAddCard() {
+    formAddValidator.resetValidation()
     form.reset()
+    openPopup(popUpAdd)
+}
+
+function addCards(evt) {
+    elements.prepend(getItems({
+        link: inputLink.value,
+        name: inputTitle.value,
+    }));
     closePopup(popUpAdd)
 }
 
-photoEditing.addEventListener('click', () => openPopup(popUpAdd));
+openUp.addEventListener('click', openEdit)
+photoEditing.addEventListener('click', openAddCard);
 formEditor.addEventListener('submit', handleFormSubmit);
 formAdd.addEventListener('submit', addCards);
 render();
