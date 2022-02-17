@@ -24,7 +24,7 @@ const initialCards = [{
 {
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-    
+
 }
 ];
 
@@ -105,19 +105,19 @@ function handleFormSubmit(evt) {
 }
 
 function openEdit() {
+    openPopup(popUpEditor)
     inputName.value = title.textContent
     inputInfo.value = subtitle.textContent
     formEditValidator.resetValidation()
-    openPopup(popUpEditor)
 }
 
 function openAddCard() {
-    formAddValidator.resetValidation()
-    form.reset()
     openPopup(popUpAdd)
+    form.reset()
+    formAddValidator.resetValidation()
 }
 
-function addCards(evt) {
+function addCards() {
     elements.prepend(getItems({
         link: inputLink.value,
         name: inputTitle.value,
