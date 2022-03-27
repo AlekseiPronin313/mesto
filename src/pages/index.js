@@ -92,6 +92,7 @@ const popupAdd = (cardData) => {
         .then((res) => {
             const renderCard = cards(res)
             section.addItem(renderCard)
+            formAddValidator.disabledButton()
             addCardForm.closePopup()
         })
         .catch((err) => {
@@ -160,6 +161,7 @@ const deleteCardConfirmation = (item) => {
         })
         .finally(() => {
             popupWithConfirmation.closePopup()
+            bottonDelete.textContent = 'Да'
         })
 }
 
