@@ -1,24 +1,24 @@
 export default class FormValidator {
     constructor(settings, form) {
-        this.form = form
+        this._form = form
         this._inputSelector = settings.inputSelector
         this._submitButtonSelector = settings.submitButtonSelector
         this._inactiveButtonClass = settings.inactiveButtonClass
         this._inputErrorClass = settings.inputErrorClass
         this._errorClass = settings.errorClass
-        this._inputs = Array.from(this.form.querySelectorAll(this._inputSelector))
-        this._button = this.form.querySelector(this._submitButtonSelector)
+        this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector))
+        this._button = this._form.querySelector(this._submitButtonSelector)
     }
 
     _showError = (input, errorMessage) => {
-        const errorContainer = this.form.querySelector(`#error-${input.id}`)
+        const errorContainer = this._form.querySelector(`#error-${input.id}`)
         errorContainer.classList.add(this._errorClass)
         errorContainer.textContent = errorMessage
         input.classList.add(this._inputErrorClass)
     }
 
     _hideError = (input) => {
-        const errorContainer = this.form.querySelector(`#error-${input.id}`)
+        const errorContainer = this._form.querySelector(`#error-${input.id}`)
         errorContainer.classList.remove(this._errorClass)
         errorContainer.textContent = ''
         input.classList.remove(this._inputErrorClass)
@@ -47,6 +47,7 @@ export default class FormValidator {
     }
 
     _setEventListeners = () => {
+        this._toggleButton()
         this._inputs.forEach(input => {
             input.addEventListener('input', () => {
                 this._validateInput(input)
@@ -56,17 +57,16 @@ export default class FormValidator {
     }
 
     resetValidation = () => {
-        this._toggleButton()
         this._inputs.forEach((input) => {
             this._hideError(input)
         })
     }
 
     enableValidation = () => {
-        this.form.addEventListener('submit', (evt) => {
+        this._form.addEventListener('submit', (evt) => {
             evt.preventDefault()
         })
 
         this._setEventListeners()
     }
-}
+}   

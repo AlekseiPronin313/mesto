@@ -15,11 +15,14 @@
         </header>
         <main class="content">
             <section class="profile">
-                <img class="profile__avatar" src="<%=require('./images/profile__image.jpg')%>" alt="фото">
+                <div class="profile__avatar-container">
+                    <img class="profile__avatar" src="#" alt="Аватарка">
+                    <div class="profile__overlay"></div>
+                </div>
                 <div class="profile__info">
-                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <h1 class="profile__title"></h1>
                     <button class="profile__button-editor" aria-label="editor" type="button"></button>
-                    <p class="profile__subtitle">Исследователь океана</p>
+                    <p class="profile__subtitle"></p>
                 </div>
                 <button class="profile__button-add" aria-label="add" type="button">
                 </button>
@@ -42,7 +45,7 @@
                         <input class="form__input" required minlength="2" maxlength="40" id="name" name="name"
                             type="text" placeholder="Имя">
                         <span id="error-name" class="form__error"></span>
-                        <input class="form__input" required minlength="2" maxlength="200" id="info" name="info"
+                        <input class="form__input" required minlength="2" maxlength="200" id="info" name="about"
                             type="text" placeholder="Профессиональная деятельность">
                         <span id="error-info" class="form__error"></span>
                         <button class="popup__button popup__button_disabled" id="botton-editor" name="button"
@@ -58,7 +61,7 @@
                 <div class="popup__container" id="popup__container_add" name="popup__container">
                     <h2 class="popup__title">Новое место</h2>
                     <form class="form" id="form-add">
-                        <input class="form__input" required minlength="2" maxlength="30" id="title" name="title"
+                        <input class="form__input" required minlength="2" maxlength="30" id="title" name="name"
                             type="text" placeholder="Название">
                         <span id="error-title" class="form__error"></span>
                         <input class="form__input" required id="link" name="link" type="url"
@@ -66,6 +69,35 @@
                         <span id="error-link" class="form__error"></span>
                         <button class="popup__button popup__button_disabled" id="botton-add" name="button"
                             type="submit">Создать</button>
+                    </form>
+                </div>
+                <button class="popup__close" type="button"></button>
+            </div>
+        </div>
+        <div class="popup popup_avatar">
+            <div class="popup__overlay"></div>
+            <div class="popup__containers">
+                <div class="popup__container" id="popup__container_avatar" name="popup__container">
+                    <h2 class="popup__title">Обновить аватар</h2>
+                    <form class="form" id="form-avatar">
+                        <input class="form__input" required id="link" name="avatar" type="url"
+                            placeholder="Cсылка на новый аватар">
+                        <span id="error-link" class="form__error"></span>
+                        <button class="popup__button popup__button_disabled" id="botton-avatar" name="button"
+                            type="submit">Сохранить</button>
+                    </form>
+                </div>
+                <button class="popup__close" type="button"></button>
+            </div>
+        </div>
+        <div class="popup popup_delete">
+            <div class="popup__overlay"></div>
+            <div class="popup__containers">
+                <div class="popup__container" id="popup__container_add" name="popup__container">
+                    <h2 class="popup__title">Вы уверены?</h2>
+                    <form class="form" id="form-delete">
+                    <button class="popup__button" id="botton-delete" name="button"
+                        type="submit">Да</button>
                     </form>
                 </div>
                 <button class="popup__close" type="button"></button>
@@ -84,7 +116,10 @@
                 <img class="element__img">
                 <div class="element__box">
                     <h2 class="element__text"></h2>
-                    <button class="element__like" aria-label="like" type="button"></button>
+                    <div class="element__likes">
+                        <button class="element__like" aria-label="like" type="button"></button>
+                        <span class="element__like-counter">0</span>
+                    </div>
                     <button class="element__delete" aria-label="delete" type="button"></button>
                 </div>
             </article>

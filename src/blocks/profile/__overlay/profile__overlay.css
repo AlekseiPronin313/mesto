@@ -1,0 +1,28 @@
+.profile__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: black;
+    transition: all 0.5s ease;
+}
+
+.profile__overlay:hover {
+    opacity: 0.8;
+}
+
+.profile__overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: url(../../../images/button-avatar.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+}
