@@ -67,7 +67,7 @@ const userInfo = new UserInfo({
     avatarSelector :profileAvatar 
 })
 
-const popupEditor = (userData) => {
+const handlePopupEditor = (userData) => {
     bottonEditor.textContent = 'Сохранение...'
     api.editProfile(userData)
         .then((res) => {
@@ -86,11 +86,11 @@ const popupEditor = (userData) => {
         })
 }
 
-const popupAdd = (cardData) => {
+const handlePopupAdd = (cardData) => {
     bottonAdd.textContent = 'Создание...'
     api.addCard(cardData)
         .then((res) => {
-            const renderCard = cards(res)
+            const renderCard = createСard(res)
             section.addItem(renderCard)
             formAddValidator.disabledButton()
             addCardForm.closePopup()
@@ -102,7 +102,7 @@ const popupAdd = (cardData) => {
             bottonAdd.textContent = 'Создать'
         })
 }
-const cards = (item) => {
+const createСard = (item) => {
     const newCard = new Card({
         data: item,
         template: ".template",
@@ -111,7 +111,7 @@ const cards = (item) => {
         },
         userId: userInfo.getId(),
          handleDelete: (item) => {
-            cardDelet(item)
+            openDeleteCard(item)
         },
         handleCardLike: (item) => {
             likeCard(item)
@@ -123,10 +123,10 @@ const cards = (item) => {
 
 const section = new Section({
     items: [],
-    renderer: cards
+    renderer: createСard
 }, elements)
 
-const avatarForm = (avatarData) => {
+const hendleAvatarForm = (avatarData) => {
     bottonAvatar.textContent = 'Сохранение...'
     api.profileAvatar(avatarData)
         .then((res) => {
@@ -136,7 +136,7 @@ const avatarForm = (avatarData) => {
                 avatar: res.avatar
             })
             popupAvatar.closePopup()
-
+            formAvatarValidator.disabledButton()
         })
         .catch((err) => {
             console.log(err)
@@ -146,7 +146,7 @@ const avatarForm = (avatarData) => {
         })
 }
 
-const cardDelet = (item) => {
+const openDeleteCard = (item) => {
     popupWithConfirmation.openPopup(item)
 }
 
@@ -155,21 +155,21 @@ const deleteCardConfirmation = (item) => {
     api.deleteCard(item.getCard())
         .then(() => {
             item.deleteCard()
+            popupWithConfirmation.closePopup()
         })
         .catch((err) => {
             console.log(err)
         })
         .finally(() => {
-            popupWithConfirmation.closePopup()
             bottonDelete.textContent = 'Да'
         })
 }
 
 
 
-const popupAvatar = new PopupWithForm(profileAvatarPopup, avatarForm)
-const editorForm = new PopupWithForm(popUpEditor, popupEditor)
-const addCardForm = new PopupWithForm(popUpAdd, popupAdd)
+const popupAvatar = new PopupWithForm(profileAvatarPopup, hendleAvatarForm)
+const editorForm = new PopupWithForm(popUpEditor, handlePopupEditor)
+const addCardForm = new PopupWithForm(popUpAdd, handlePopupAdd)
 const popupWithConfirmation = new PopupWithConfirmation(popupDelete, deleteCardConfirmation)
 const popupWithImage = new PopupWithImage(popupImage)
 
