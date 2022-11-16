@@ -11,5 +11,5 @@
 5. flexbox
 6. Grid Layout
 
-# [Ссылка на проект GitHub]https://alekseipronin313.github.io/mesto/
+# [Ссылка на проект GitHub](https://alekseipronin313.github.io/mesto/)
 
